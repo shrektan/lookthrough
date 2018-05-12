@@ -1,0 +1,20 @@
+Type: Package
+Package: lookthrough
+Title: The Look-Through Approach For Exposures
+Version: 0.0.1
+Authors@R: person("Xianying", "Tan", email = "shrektan@126.com", role = c("aut", "cre"))
+Maintainer: Xianying Tan <shrektan@126.com>
+Description: View the fund exposure using the look-through approach.
+URL: https://github.com/shrektan/lookthrough
+License: MIT + file LICENSE
+Depends:
+    R (>= 3.4.0)
+Imports: 
+    data.table,
+    data.tree
+Suggests: 
+    testthat
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
