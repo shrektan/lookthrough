@@ -60,20 +60,24 @@ lkthr_set_relation <- function(ptfs, funds) {
   stopifnot(
     is_lkthr(ptfs), is_lkthr(funds)
   )
-  purrr::iwalk(funds$children, ~{
-    fund <- .x
-    fund_name <- .y
-    fund_exposure <- data.tree::Aggregate(fund, "exposure", sum)
-    ptfs$Do(fun = function(lkthr_asset) {
-      asset_exposure <- lkthr_asset$exposure
-      purrr::walk(fund$children, ~{
-        node <- lkthr_asset$AddChildNode(data.tree::Clone(.x))
-        node$exposure <- node$exposure * asset_exposure / fund_exposure
+  count <- NULL
+  while (!identical(count, ptfs$totalCount)) {
+    count <- ptfs$totalCount
+    purrr::iwalk(funds$children, ~{
+      fund <- .x
+      fund_name <- .y
+      fund_exposure <- data.tree::Aggregate(fund, "exposure", sum)
+      ptfs$Do(fun = function(lkthr_asset) {
+        asset_exposure <- lkthr_asset$exposure
+        purrr::walk(fund$children, ~{
+          node <- lkthr_asset$AddChildNode(data.tree::Clone(.x))
+          node$exposure <- node$exposure * asset_exposure / fund_exposure
+        })
+      }, filterFun = function(node) {
+        data.tree::isLeaf(node) && fund_name %in% node$name
       })
-    }, filterFun = function(node) {
-      data.tree::isLeaf(node) && fund_name %in% node$name
     })
-  })
+  }
   invisible(ptfs)
 }
 
