@@ -1,0 +1,42 @@
+ptfs:
+  ptf1:
+    asset1: 300
+    fund2: 900
+    asset3: 800
+    asset4: 500
+    asset5: 800
+    fund3: 2000
+  ptf2:
+    fund1: 800
+    asset2: 600
+    asset3: 9300
+  ptf3:
+    asset5: 900
+    asset6: 1000
+    asset7: 2000
+    fund3: 5000
+funds:
+  fund1:
+    asset1: 800
+    asset2: 1800
+  fund2:
+    asset5: 2000
+    asset3: 800
+    fund3: 5000
+  fund3:
+    asset3: 8000
+    asset7: 3000
+attributes:
+  asset1:
+    issuer: company_a
+    guarantor: company_b
+  asset2:
+    issuer: company_a
+    guarantor: company_c
+  asset3:
+    issuer: company_b
+    guarantor: company_d
+  asset4:
+    issuer: company_e
+  asset7:
+    issuer: company_g

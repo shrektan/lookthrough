@@ -11,7 +11,8 @@ Depends:
     R (>= 3.4.0)
 Imports: 
     data.table,
-    data.tree
+    data.tree,
+    purrr
 Suggests: 
     testthat
 Encoding: UTF-8
