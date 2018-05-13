@@ -26,6 +26,7 @@ funds:
   fund3:
     asset3: 8000
     asset7: 3000
+    fund1: 1000
 attributes:
   asset1:
     issuer: company_a
