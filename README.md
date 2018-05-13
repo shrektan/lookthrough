@@ -28,35 +28,44 @@ purrr::iwalk(lkthr_sample$attributes, ~{
   purrr::invoke(lkthr_set_attr, .x = .x, assets = .y, ptfs= ptfs)
 })
 print(ptfs, "exposure", "issuer", "guarantor")
-#>                 levelName   exposure    issuer guarantor
-#> 1  ptfs                           NA                    
-#> 2   ¦--ptf1                       NA                    
-#> 3   ¦   ¦--asset1          300.00000 company_a company_b
-#> 4   ¦   ¦--fund2           900.00000                    
-#> 5   ¦   ¦   ¦--asset5      230.76923                    
-#> 6   ¦   ¦   ¦--asset3       92.30769 company_b company_d
-#> 7   ¦   ¦   °--fund3       576.92308                    
-#> 8   ¦   ¦       ¦--asset3  419.58042 company_b company_d
-#> 9   ¦   ¦       °--asset7  157.34266 company_g          
-#> 10  ¦   ¦--asset3          800.00000 company_b company_d
-#> 11  ¦   ¦--asset4          500.00000 company_e          
-#> 12  ¦   ¦--asset5          800.00000                    
-#> 13  ¦   °--fund3          2000.00000                    
-#> 14  ¦       ¦--asset3     1454.54545 company_b company_d
-#> 15  ¦       °--asset7      545.45455 company_g          
-#> 16  ¦--ptf2                       NA                    
-#> 17  ¦   ¦--fund1           800.00000                    
-#> 18  ¦   ¦   ¦--asset1      246.15385 company_a company_b
-#> 19  ¦   ¦   °--asset2      553.84615 company_a company_c
-#> 20  ¦   ¦--asset2          600.00000 company_a company_c
-#> 21  ¦   °--asset3         9300.00000 company_b company_d
-#> 22  °--ptf3                       NA                    
-#> 23      ¦--asset5          900.00000                    
-#> 24      ¦--asset6         1000.00000                    
-#> 25      ¦--asset7         2000.00000 company_g          
-#> 26      °--fund3          5000.00000                    
-#> 27          ¦--asset3     3636.36364 company_b company_d
-#> 28          °--asset7     1363.63636 company_g
+#>                     levelName   exposure    issuer guarantor
+#> 1  ptfs                               NA                    
+#> 2   ¦--ptf1                           NA                    
+#> 3   ¦   ¦--asset1              300.00000 company_a company_b
+#> 4   ¦   ¦--fund2               900.00000                    
+#> 5   ¦   ¦   ¦--asset5          230.76923                    
+#> 6   ¦   ¦   ¦--asset3           92.30769 company_b company_d
+#> 7   ¦   ¦   °--fund3           576.92308                    
+#> 8   ¦   ¦       ¦--asset3      384.61538 company_b company_d
+#> 9   ¦   ¦       ¦--asset7      144.23077 company_g          
+#> 10  ¦   ¦       °--fund1        48.07692                    
+#> 11  ¦   ¦           ¦--asset1   14.79290 company_a company_b
+#> 12  ¦   ¦           °--asset2   33.28402 company_a company_c
+#> 13  ¦   ¦--asset3              800.00000 company_b company_d
+#> 14  ¦   ¦--asset4              500.00000 company_e          
+#> 15  ¦   ¦--asset5              800.00000                    
+#> 16  ¦   °--fund3              2000.00000                    
+#> 17  ¦       ¦--asset3         1333.33333 company_b company_d
+#> 18  ¦       ¦--asset7          500.00000 company_g          
+#> 19  ¦       °--fund1           166.66667                    
+#> 20  ¦           ¦--asset1       51.28205 company_a company_b
+#> 21  ¦           °--asset2      115.38462 company_a company_c
+#> 22  ¦--ptf2                           NA                    
+#> 23  ¦   ¦--fund1               800.00000                    
+#> 24  ¦   ¦   ¦--asset1          246.15385 company_a company_b
+#> 25  ¦   ¦   °--asset2          553.84615 company_a company_c
+#> 26  ¦   ¦--asset2              600.00000 company_a company_c
+#> 27  ¦   °--asset3             9300.00000 company_b company_d
+#> 28  °--ptf3                           NA                    
+#> 29      ¦--asset5              900.00000                    
+#> 30      ¦--asset6             1000.00000                    
+#> 31      ¦--asset7             2000.00000 company_g          
+#> 32      °--fund3              5000.00000                    
+#> 33          ¦--asset3         3333.33333 company_b company_d
+#> 34          ¦--asset7         1250.00000 company_g          
+#> 35          °--fund1           416.66667                    
+#> 36              ¦--asset1      128.20513 company_a company_b
+#> 37              °--asset2      288.46154 company_a company_c
 ```
 
 ``` r
@@ -74,15 +83,29 @@ repeat ({
   if (pruned == 0) break
 })
 print(company_a, "issuer", "exposure")
-#>            levelName    issuer exposure
-#> 1 ptfs                               NA
-#> 2  ¦--ptf1                           NA
-#> 3  ¦   °--asset1     company_a 300.0000
-#> 4  °--ptf2                           NA
-#> 5      ¦--fund1                800.0000
-#> 6      ¦   ¦--asset1 company_a 246.1538
-#> 7      ¦   °--asset2 company_a 553.8462
-#> 8      °--asset2     company_a 600.0000
+#>                     levelName    issuer   exposure
+#> 1  ptfs                                         NA
+#> 2   ¦--ptf1                                     NA
+#> 3   ¦   ¦--asset1             company_a  300.00000
+#> 4   ¦   ¦--fund2                         900.00000
+#> 5   ¦   ¦   °--fund3                     576.92308
+#> 6   ¦   ¦       °--fund1                  48.07692
+#> 7   ¦   ¦           ¦--asset1 company_a   14.79290
+#> 8   ¦   ¦           °--asset2 company_a   33.28402
+#> 9   ¦   °--fund3                        2000.00000
+#> 10  ¦       °--fund1                     166.66667
+#> 11  ¦           ¦--asset1     company_a   51.28205
+#> 12  ¦           °--asset2     company_a  115.38462
+#> 13  ¦--ptf2                                     NA
+#> 14  ¦   ¦--fund1                         800.00000
+#> 15  ¦   ¦   ¦--asset1         company_a  246.15385
+#> 16  ¦   ¦   °--asset2         company_a  553.84615
+#> 17  ¦   °--asset2             company_a  600.00000
+#> 18  °--ptf3                                     NA
+#> 19      °--fund3                        5000.00000
+#> 20          °--fund1                     416.66667
+#> 21              ¦--asset1     company_a  128.20513
+#> 22              °--asset2     company_a  288.46154
 data.tree::Aggregate(
   ptfs,
   "exposure",

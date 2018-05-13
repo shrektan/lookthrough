@@ -45,6 +45,7 @@ plot(ptfs)
 
 ![ptfs-plot](man/figures/ptfs-plot.jpeg)
 
+
 ```{r issuer}
 company_a <- data.tree::Clone(ptfs)
 repeat ({
