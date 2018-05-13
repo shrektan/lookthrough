@@ -1,0 +1,71 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# lookthrough
+
+[![CRAN status](https://www.r-pkg.org/badges/version/lookthrough)](https://cran.r-project.org/package=lookthrough)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
+The goal of lookthrough is to help to view the assets exposure using the look-through approach.
+
+## Installation
+
+``` r
+devtools::install_github("shrektan/lookthrough")
+```
+
+## Example
+
+```{r ptfs}
+library(lookthrough)
+data(lkthr_sample)
+ptfs <- as_lkthr(lkthr_sample$ptfs)
+funds <- as_lkthr(lkthr_sample$funds)
+lkthr_set_relation(ptfs, funds)
+purrr::iwalk(lkthr_sample$attributes, ~{
+  purrr::invoke(lkthr_set_attr, .x = .x, assets = .y, ptfs= ptfs)
+})
+print(ptfs, "exposure", "issuer", "guarantor")
+```
+
+```{r ptfs-plot, eval=FALSE}
+plot(ptfs)
+```
+
+![ptfs-plot](man/figures/ptfs-plot.jpeg)
+
+```{r issuer}
+company_a <- data.tree::Clone(ptfs)
+repeat ({
+  pruned <- data.tree::Prune(company_a, function(node) {
+    !(data.tree::isLeaf(node) && !"company_a" %in% node$issuer)
+  })
+  if (pruned == 0) break
+})
+print(company_a, "issuer", "exposure")
+data.tree::Aggregate(
+  ptfs,
+  "exposure",
+  sum,
+  filterFun = function(node)
+    data.tree::isLeaf(node) && "company_a" %in% node$issuer
+)
+```
+
+```{r issuer-plot, eval=FALSE}
+plot(company_a)
+```
+
+![issuer-plot](man/figures/issuer-plot.jpeg)
+
