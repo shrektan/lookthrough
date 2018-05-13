@@ -54,14 +54,11 @@ repeat ({
   })
   if (pruned == 0) break
 })
+company_a$Do(function(node) {
+  if (!node$isLeaf) node$exposure <- NULL
+})
 print(company_a, "issuer", "exposure")
-data.tree::Aggregate(
-  ptfs,
-  "exposure",
-  sum,
-  filterFun = function(node)
-    data.tree::isLeaf(node) && "company_a" %in% node$issuer
-)
+data.tree::Aggregate(company_a, "exposure", sum)
 ```
 
 ```{r issuer-plot, eval=FALSE}

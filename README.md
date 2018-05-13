@@ -82,38 +82,35 @@ repeat ({
   })
   if (pruned == 0) break
 })
+company_a$Do(function(node) {
+  if (!node$isLeaf) node$exposure <- NULL
+})
 print(company_a, "issuer", "exposure")
-#>                     levelName    issuer   exposure
-#> 1  ptfs                                         NA
-#> 2   ¦--ptf1                                     NA
-#> 3   ¦   ¦--asset1             company_a  300.00000
-#> 4   ¦   ¦--fund2                         900.00000
-#> 5   ¦   ¦   °--fund3                     576.92308
-#> 6   ¦   ¦       °--fund1                  48.07692
-#> 7   ¦   ¦           ¦--asset1 company_a   14.79290
-#> 8   ¦   ¦           °--asset2 company_a   33.28402
-#> 9   ¦   °--fund3                        2000.00000
-#> 10  ¦       °--fund1                     166.66667
-#> 11  ¦           ¦--asset1     company_a   51.28205
-#> 12  ¦           °--asset2     company_a  115.38462
-#> 13  ¦--ptf2                                     NA
-#> 14  ¦   ¦--fund1                         800.00000
-#> 15  ¦   ¦   ¦--asset1         company_a  246.15385
-#> 16  ¦   ¦   °--asset2         company_a  553.84615
-#> 17  ¦   °--asset2             company_a  600.00000
-#> 18  °--ptf3                                     NA
-#> 19      °--fund3                        5000.00000
-#> 20          °--fund1                     416.66667
-#> 21              ¦--asset1     company_a  128.20513
-#> 22              °--asset2     company_a  288.46154
-data.tree::Aggregate(
-  ptfs,
-  "exposure",
-  sum,
-  filterFun = function(node)
-    data.tree::isLeaf(node) && "company_a" %in% node$issuer
-)
-#> [1] 24900
+#>                     levelName    issuer  exposure
+#> 1  ptfs                                        NA
+#> 2   ¦--ptf1                                    NA
+#> 3   ¦   ¦--asset1             company_a 300.00000
+#> 4   ¦   ¦--fund2                               NA
+#> 5   ¦   ¦   °--fund3                           NA
+#> 6   ¦   ¦       °--fund1                       NA
+#> 7   ¦   ¦           ¦--asset1 company_a  14.79290
+#> 8   ¦   ¦           °--asset2 company_a  33.28402
+#> 9   ¦   °--fund3                               NA
+#> 10  ¦       °--fund1                           NA
+#> 11  ¦           ¦--asset1     company_a  51.28205
+#> 12  ¦           °--asset2     company_a 115.38462
+#> 13  ¦--ptf2                                    NA
+#> 14  ¦   ¦--fund1                               NA
+#> 15  ¦   ¦   ¦--asset1         company_a 246.15385
+#> 16  ¦   ¦   °--asset2         company_a 553.84615
+#> 17  ¦   °--asset2             company_a 600.00000
+#> 18  °--ptf3                                    NA
+#> 19      °--fund3                               NA
+#> 20          °--fund1                           NA
+#> 21              ¦--asset1     company_a 128.20513
+#> 22              °--asset2     company_a 288.46154
+data.tree::Aggregate(company_a, "exposure", sum)
+#> [1] 2331.41
 ```
 
 ``` r
