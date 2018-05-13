@@ -1,9 +1,11 @@
 
+#' @export
 as_lkthr <- function(x, ...) {
   UseMethod("as_lkthr")
 }
 
 
+#' @export
 as_lkthr.data.frame <- function(
   x, mapping = c(ptf = "PTF", asset = "ASSET", exposure = "EXPOSURE")
 ) {
@@ -31,6 +33,7 @@ as_lkthr.data.frame <- function(
 }
 
 
+#' @export
 as_lkthr.list <- function(x, ...) {
   res <- data.tree::Node$new("ptfs")
   for (i in seq_along(x)) {
@@ -46,11 +49,13 @@ as_lkthr.list <- function(x, ...) {
 }
 
 
+#' @export
 is_lkthr <- function(x) {
   inherits(x, "lkthr")
 }
 
 
+#' @export
 lkthr_set_relation <- function(ptfs, funds) {
   stopifnot(
     is_lkthr(ptfs), is_lkthr(funds)
@@ -73,6 +78,7 @@ lkthr_set_relation <- function(ptfs, funds) {
 }
 
 
+#' @export
 lkthr_set_attr <- function(ptfs, assets, ...) {
   stopifnot(
     is_lkthr(ptfs), is.character(assets)
