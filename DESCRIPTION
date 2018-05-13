@@ -10,9 +10,9 @@ License: MIT + file LICENSE
 Depends:
     R (>= 3.4.0)
 Imports: 
-    data.table,
     data.tree,
-    purrr
+    purrr,
+    magrittr
 Suggests: 
     testthat
 Encoding: UTF-8
