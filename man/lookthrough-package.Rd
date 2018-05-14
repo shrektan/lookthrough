@@ -15,8 +15,9 @@ calculate aggregated numbers.
 \details{
 The implementation takes advantage of the
 \href{https://github.com/gluc/data.tree}{data.tree} package, which is suitable for
-this kind of problems. I strongly suggest you skim the vignettes of data.tree
-(see the references below) to have a better understanding of how this package works.
+this kind of problems. The users are supposed to be familiared with the data.tree
+package. For those who are not, I strongly suggest to skim the vignettes of data.tree
+(see the references below).
 }
 \references{
 \itemize{
