@@ -140,7 +140,7 @@ lkthr_filter <- function(ptfs, fun) {
 lkthr_recal_exposure <- function(ptfs) {
   stopifnot(is_lkthr(ptfs))
   ptfs$Do(function(node) {
-    node$exposure <- Aggregate(node, attribute = "exposure", aggFun = sum)
+    node$exposure <- data.tree::Aggregate(node, attribute = "exposure", aggFun = sum)
   }, traversal = "post-order")
   invisible(ptfs)
 }

@@ -35,12 +35,15 @@ test_that("set works and alters the input", {
 })
 
 test_that("filter works and won't alter the input", {
-  ptfs2 <- lkthr_match(Clone(ptfs), funds)
-  ptfs2_backup <- Clone(ptfs2)
-  lkthr_set(ptfs2, lkthr_sample$attributes)
+  ptfs2 <- lkthr_set(lkthr_match(Clone(ptfs), funds), lkthr_sample$attributes)
   res <- lkthr_filter(ptfs2, function(node) {"company_g" %in% node$issuer})
   expect_equal(
     unique(purrr::map_chr(res$leaves, ~.$name)),
     "asset7"
   )
+  expect_equal(
+    res$ptf3$fund3$asset7$exposure,
+    res$ptf3$fund3$exposure
+  )
 })
+
