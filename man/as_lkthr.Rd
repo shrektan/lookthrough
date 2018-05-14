@@ -2,9 +2,16 @@
 % Please edit documentation in R/lkthr.R
 \name{as_lkthr}
 \alias{as_lkthr}
+\alias{as_lkthr.data.frame}
+\alias{as_lkthr.list}
 \title{Make a lkthr(abbr of lookthrough) object}
 \usage{
 as_lkthr(x, ...)
+
+\method{as_lkthr}{data.frame}(x, mapping = c(ptf = "PTF", asset = "ASSET",
+  exposure = "EXPOSURE"), ...)
+
+\method{as_lkthr}{list}(x, ...)
 }
 \arguments{
 \item{x}{A \code{list} or a \code{data.frame} contains position info. If

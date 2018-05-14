@@ -49,6 +49,8 @@ as_lkthr <- function(x, ...) {
 }
 
 
+#' @rdname as_lkthr
+#' @export
 as_lkthr.data.frame <- function(
   x, mapping = c(ptf = "PTF", asset = "ASSET", exposure = "EXPOSURE"), ...
 ) {
@@ -80,6 +82,8 @@ as_lkthr.data.frame <- function(
 }
 
 
+#' @rdname as_lkthr
+#' @export
 as_lkthr.list <- function(x, ...) {
   res <- data.tree::Node$new("ptfs")
   for (i in seq_along(x)) {
