@@ -23,6 +23,7 @@ this kind of problems. I strongly suggest you skim the vignettes of data.tree
 \item \href{https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html}{Quick introduction to data.tree}
 \item \href{https://cran.r-project.org/web/packages/data.tree/vignettes/applications.html}{Example applications of data.tree}
 \item \href{https://www.centralbank.ie/docs/default-source/Regulation/industry-market-sectors/insurance-reinsurance/solvency-ii/communications/solvency-ii-information-notes/solvency-ii-information-note-9-look-through-of-collective-investment-undertakings-in-template-s-06-03.pdf?sfvrsn=2}{Solvency II Information Note 9 - Look-through of Collective Investment Undertakings in template S.06.03}
+\item \href{http://www.dilloneustace.ie/download/1/Publications/Insurance/Solvency\%20II\%20Look-Through.pdf}{Solvency II Look-Through}
 }
 }
 \seealso{
