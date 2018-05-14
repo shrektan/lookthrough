@@ -3,7 +3,7 @@
 lookthrough
 ===========
 
-[![CRAN status](https://www.r-pkg.org/badges/version/lookthrough)](https://cran.r-project.org/package=lookthrough) [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/lookthrough)](https://cran.r-project.org/package=lookthrough) [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) [![Travis build status](https://travis-ci.org/shrektan/lookthrough.svg?branch=master)](https://travis-ci.org/shrektan/lookthrough) [![Coverage status](https://codecov.io/gh/shrektan/lookthrough/branch/master/graph/badge.svg)](https://codecov.io/github/shrektan/lookthrough?branch=master)
 
 The goal of lookthrough is to help to view the assets exposure using the look-through approach.
 
@@ -63,44 +63,44 @@ lkthr_match(ptfs, funds)
 #> 37              °--asset2
 lkthr_set(ptfs, lkthr_sample$attributes)
 print(ptfs, "exposure", "issuer", "guarantor")
-#>                     levelName   exposure    issuer guarantor
-#> 1  ptfs                               NA                    
-#> 2   |--ptf1                           NA                    
-#> 3   |   |--asset1              300.00000 company_a company_b
-#> 4   |   |--fund2               900.00000                    
-#> 5   |   |   |--asset5          230.76923                    
-#> 6   |   |   |--asset3           92.30769 company_b company_d
-#> 7   |   |   °--fund3           576.92308                    
-#> 8   |   |       |--asset3      384.61538 company_b company_d
-#> 9   |   |       |--asset7      144.23077 company_g          
-#> 10  |   |       °--fund1        48.07692                    
-#> 11  |   |           |--asset1   14.79290 company_a company_b
-#> 12  |   |           °--asset2   33.28402 company_a company_c
-#> 13  |   |--asset3              800.00000 company_b company_d
-#> 14  |   |--asset4              500.00000 company_e          
-#> 15  |   |--asset5              800.00000                    
-#> 16  |   °--fund3              2000.00000                    
-#> 17  |       |--asset3         1333.33333 company_b company_d
-#> 18  |       |--asset7          500.00000 company_g          
-#> 19  |       °--fund1           166.66667                    
-#> 20  |           |--asset1       51.28205 company_a company_b
-#> 21  |           °--asset2      115.38462 company_a company_c
-#> 22  |--ptf2                           NA                    
-#> 23  |   |--fund1               800.00000                    
-#> 24  |   |   |--asset1          246.15385 company_a company_b
-#> 25  |   |   °--asset2          553.84615 company_a company_c
-#> 26  |   |--asset2              600.00000 company_a company_c
-#> 27  |   °--asset3             9300.00000 company_b company_d
-#> 28  °--ptf3                           NA                    
-#> 29      |--asset5              900.00000                    
-#> 30      |--asset6             1000.00000                    
-#> 31      |--asset7             2000.00000 company_g          
-#> 32      °--fund3              5000.00000                    
-#> 33          |--asset3         3333.33333 company_b company_d
-#> 34          |--asset7         1250.00000 company_g          
-#> 35          °--fund1           416.66667                    
-#> 36              |--asset1      128.20513 company_a company_b
-#> 37              °--asset2      288.46154 company_a company_c
+#>                     levelName    exposure    issuer guarantor
+#> 1  ptfs                       24900.00000                    
+#> 2   |--ptf1                    5300.00000                    
+#> 3   |   |--asset1               300.00000 company_a company_b
+#> 4   |   |--fund2                900.00000                    
+#> 5   |   |   |--asset5           230.76923                    
+#> 6   |   |   |--asset3            92.30769 company_b company_d
+#> 7   |   |   °--fund3            576.92308                    
+#> 8   |   |       |--asset3       384.61538 company_b company_d
+#> 9   |   |       |--asset7       144.23077 company_g          
+#> 10  |   |       °--fund1         48.07692                    
+#> 11  |   |           |--asset1    14.79290 company_a company_b
+#> 12  |   |           °--asset2    33.28402 company_a company_c
+#> 13  |   |--asset3               800.00000 company_b company_d
+#> 14  |   |--asset4               500.00000 company_e          
+#> 15  |   |--asset5               800.00000                    
+#> 16  |   °--fund3               2000.00000                    
+#> 17  |       |--asset3          1333.33333 company_b company_d
+#> 18  |       |--asset7           500.00000 company_g          
+#> 19  |       °--fund1            166.66667                    
+#> 20  |           |--asset1        51.28205 company_a company_b
+#> 21  |           °--asset2       115.38462 company_a company_c
+#> 22  |--ptf2                   10700.00000                    
+#> 23  |   |--fund1                800.00000                    
+#> 24  |   |   |--asset1           246.15385 company_a company_b
+#> 25  |   |   °--asset2           553.84615 company_a company_c
+#> 26  |   |--asset2               600.00000 company_a company_c
+#> 27  |   °--asset3              9300.00000 company_b company_d
+#> 28  °--ptf3                    8900.00000                    
+#> 29      |--asset5               900.00000                    
+#> 30      |--asset6              1000.00000                    
+#> 31      |--asset7              2000.00000 company_g          
+#> 32      °--fund3               5000.00000                    
+#> 33          |--asset3          3333.33333 company_b company_d
+#> 34          |--asset7          1250.00000 company_g          
+#> 35          °--fund1            416.66667                    
+#> 36              |--asset1       128.20513 company_a company_b
+#> 37              °--asset2       288.46154 company_a company_c
 ```
 
 ``` r
