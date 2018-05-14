@@ -47,10 +47,14 @@ as_lkthr.data.frame <- function(
     if (is.null(node_ptf <- data.tree::FindNode(res, ptf))) {
       node_ptf <- res$AddChild(ptf)
     }
-    node_asset <- data.tree::FindNode(node_ptf, assets[i])
+    asset <- assets[[i]]
+    if (is.null(node_asset <- data.tree::FindNode(node_ptf, asset))) {
+      node_asset <- node_ptf$AddChild(asset)
+    }
     node_asset$Set(exposure = exposures[i])
   }
   class(res) <- c("lkthr", class(res))
+  lkthr_recal_exposure(res)
   res
 }
 
@@ -67,6 +71,7 @@ as_lkthr.list <- function(x, ...) {
     }
   }
   class(res) <- c("lkthr", class(res))
+  lkthr_recal_exposure(res)
   res
 }
 

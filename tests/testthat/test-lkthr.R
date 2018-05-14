@@ -4,6 +4,36 @@ data(lkthr_sample)
 ptfs <- as_lkthr(lkthr_sample$ptfs)
 funds <- as_lkthr(lkthr_sample$funds)
 
+test_that("as_lkthr.data.frame", {
+  df <- data.frame(
+    ptf = c("a", "a", "b"),
+    asset = c("a1", "b1", "d2"),
+    exposure = c(3, 82, 11),
+    stringsAsFactors = FALSE
+  )
+  res <- as_lkthr(df, c(ptf = "ptf", asset = "asset", exposure = "exposure"))
+  expect_equivalent(
+    res$Get("exposure", filterFun = function(node) node$isLeaf),
+    df$exposure
+  )
+  # run recal automatically
+  expect_equal(res$exposure, 96)
+})
+
+test_that("as_lkthr.list", {
+  lst <- list(
+    a = list(a1 = 1.2, a2 = 1.3),
+    b = list(b1 = 3, b2 = 8, b3 = 10)
+  )
+  res <- as_lkthr(lst)
+  expect_equivalent(
+    res$Get("exposure", filterFun = function(node) node$isLeaf),
+    purrr::flatten_dbl(purrr::flatten(lst))
+  )
+  # run recal automatically
+  expect_equal(res$exposure, 23.5)
+})
+
 test_that("match will alter the input", {
   ptfs2 <- Clone(ptfs)
   res <- lkthr_match(ptfs2, funds, 5L)
