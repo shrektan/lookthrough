@@ -21,5 +21,5 @@ The fund position will be appended the asset by compare the name.
 }
 \details{
 It's a by reference operation and will alter the \code{ptfs} input. You
-can call \code{\link[=Copy]{Copy()}} in order not to change the original value.
+can call \code{\link[data.tree:Clone]{data.tree::Clone()}} in order not to change the original value.
 }

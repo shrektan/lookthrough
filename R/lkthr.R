@@ -13,8 +13,8 @@
 #' (see the references below).
 #'
 #' @references
-#' * [Quick introduction to data.tree](https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html)
-#' * [Example applications of data.tree](https://cran.r-project.org/web/packages/data.tree/vignettes/applications.html)
+#' * [Quick introduction to data.tree](https://CRAN.R-project.org/package=data.tree/vignettes/data.tree.html)
+#' * [Example applications of data.tree](https://CRAN.R-project.org/package=data.tree/vignettes/applications.html)
 #' * [Solvency II Information Note 9 - Look-through of Collective Investment Undertakings in template S.06.03](https://www.centralbank.ie/docs/default-source/Regulation/industry-market-sectors/insurance-reinsurance/solvency-ii/communications/solvency-ii-information-notes/solvency-ii-information-note-9-look-through-of-collective-investment-undertakings-in-template-s-06-03.pdf?sfvrsn=2)
 #' * [Solvency II Look-Through](http://www.dilloneustace.ie/download/1/Publications/Insurance/Solvency\%20II\%20Look-Through.pdf)
 #'
@@ -36,9 +36,12 @@
 #'
 #' @param x A `list` or a `data.frame` contains position info. If
 #'   `x` is a `list`, it should contain three levels of each represents
-#'   the `PTF`, `ASSET` and `EXPOSURE`. If x is
-#' @param mapping When x is a `data.frame`, you can
+#'   the `PTF`, `ASSET` and `EXPOSURE`.
+#' @param ... Other arguments being passed to the patched functions. Currently,
+#'   if `x` is a `data.frame`, you can use a named character vector `mapping`
+#'   to map the `data.frame` columns `PTF`, `ASSET` and `EXPOSURE`.
 #'
+#' @return A `lkthr` object. Essentially it's a [data.tree::Node].
 #'
 #' @export
 as_lkthr <- function(x, ...) {
@@ -103,7 +106,7 @@ is_lkthr <- function(x) {
 #' The fund position will be appended the asset by compare the name.
 #'
 #' It's a by reference operation and will alter the `ptfs` input. You
-#' can call [Copy()] in order not to change the original value.
+#' can call [data.tree::Clone()] in order not to change the original value.
 #'
 #' @param ptfs A `lkthr` object contains the ptf position.
 #' @param funds A `lkthr` object contains the fund position.

@@ -9,9 +9,14 @@ as_lkthr(x, ...)
 \arguments{
 \item{x}{A \code{list} or a \code{data.frame} contains position info. If
 \code{x} is a \code{list}, it should contain three levels of each represents
-the \code{PTF}, \code{ASSET} and \code{EXPOSURE}. If x is}
+the \code{PTF}, \code{ASSET} and \code{EXPOSURE}.}
 
-\item{mapping}{When x is a \code{data.frame}, you can}
+\item{...}{Other arguments being passed to the patched functions. Currently,
+if \code{x} is a \code{data.frame}, you can use a named character vector \code{mapping}
+to map the \code{data.frame} columns \code{PTF}, \code{ASSET} and \code{EXPOSURE}.}
+}
+\value{
+A \code{lkthr} object. Essentially it's a \link[data.tree:Node]{data.tree::Node}.
 }
 \description{
 Make a lkthr(abbr of lookthrough) object
