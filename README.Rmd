@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 [![CRAN status](https://www.r-pkg.org/badges/version/lookthrough)](https://cran.r-project.org/package=lookthrough)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/shrektan/lookthrough?branch=master&svg=true)](https://ci.appveyor.com/project/shrektan/lookthrough)
 [![Travis build status](https://travis-ci.org/shrektan/lookthrough.svg?branch=master)](https://travis-ci.org/shrektan/lookthrough)
 [![Coverage status](https://codecov.io/gh/shrektan/lookthrough/branch/master/graph/badge.svg)](https://codecov.io/github/shrektan/lookthrough?branch=master)
 
