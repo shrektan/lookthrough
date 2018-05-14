@@ -18,7 +18,6 @@
 "_PACKAGE"
 
 
-
 #' @export
 as_lkthr <- function(x, ...) {
   UseMethod("as_lkthr")
@@ -37,7 +36,7 @@ as_lkthr.data.frame <- function(
   stopifnot(
     is.character(ptfs <- x[[mapping["ptf"]]]),
     is.character(assets <- x[[mapping["asset"]]]),
-    is.numeric(exposures <- x[[mapping["exposure"]]]),
+    is.numeric(exposures <- x[[mapping["exposure"]]])
   )
   res <- data.tree::Node$new("ptfs")
   for (i in seq_along(ptfs)) {
@@ -76,21 +75,23 @@ is_lkthr <- function(x) {
 
 
 #' @export
-lkthr_set_relation <- function(ptfs, funds) {
+lkthr_match <- function(ptfs, funds, max_layer = 5L) {
   stopifnot(
-    is_lkthr(ptfs), is_lkthr(funds)
+    is_lkthr(ptfs), is_lkthr(funds), is.numeric(max_layer)
   )
+  layer <- 1L
   count <- NULL
-  while (!identical(count, ptfs$totalCount)) {
+  while (!identical(count, ptfs$totalCount) && layer < max_layer) {
     count <- ptfs$totalCount
+    layer <- layer + 1L
     purrr::iwalk(funds$children, ~{
-      fund <- .x
+      fund_node <- .x
       fund_name <- .y
-      fund_exposure <- data.tree::Aggregate(fund, "exposure", sum)
+      fund_exposure <- data.tree::Aggregate(fund_node, "exposure", sum)
       ptfs$Do(fun = function(lkthr_asset) {
         asset_exposure <- lkthr_asset$exposure
-        purrr::walk(fund$children, ~{
-          node <- lkthr_asset$AddChildNode(data.tree::Clone(.x))
+        purrr::walk(fund_node$children, ~{
+          node <- lkthr_asset$AddChildNode(data.tree::Clone(.))
           node$exposure <- node$exposure * asset_exposure / fund_exposure
         })
       }, filterFun = function(node) {
@@ -98,18 +99,43 @@ lkthr_set_relation <- function(ptfs, funds) {
       })
     })
   }
+  ptfs
+}
+
+
+#' @export
+lkthr_set <- function(ptfs, attr) {
+  stopifnot(
+    is_lkthr(ptfs), is.list(attr), !is.null(names(attr))
+  )
+  purrr::imap(attr, ~{
+    ptfs$Do(function(node) {
+      purrr::invoke(node$Set, .x = .x)
+    }, filterFun = function(node) {
+      data.tree::isLeaf(node) && node$name %in% .y
+    })
+  })
   invisible(ptfs)
 }
 
 
 #' @export
-lkthr_set_attr <- function(ptfs, assets, ...) {
-  stopifnot(
-    is_lkthr(ptfs), is.character(assets)
-  )
-  ptfs$Do(function(node) {
-    node$Set(...)
-  }, filterFun = function(node) {
-    data.tree::isLeaf(node) && node$name %in% assets
+lkthr_filter <- function(ptfs, fun) {
+  stopifnot(is.function(fun), is_lkthr(ptfs))
+  res <- data.tree::Clone(ptfs)
+  repeat ({
+    pruned <- data.tree::Prune(res, function(node) {
+      !data.tree::isLeaf(node) || fun(node)
+    })
+    if (pruned == 0) break
   })
+  res
+}
+
+
+#' @export
+lkthr_aggregate <- function(ptfs, field) {
+  data.tree::Aggregate(ptfs, function(node) {
+    if (node$isLeaf) node[[field]]
+  }, sum)
 }

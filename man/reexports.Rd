@@ -4,6 +4,8 @@
 \name{reexports}
 \alias{reexports}
 \alias{\%>\%}
+\alias{reexports}
+\alias{Clone}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -11,6 +13,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{data.tree}{\code{\link[data.tree]{Clone}}}
+
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 }}
 
