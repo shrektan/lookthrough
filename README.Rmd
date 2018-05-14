@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 
 [![CRAN status](https://www.r-pkg.org/badges/version/lookthrough)](https://cran.r-project.org/package=lookthrough)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build status](https://travis-ci.org/shrektan/lookthrough.svg?branch=master)](https://travis-ci.org/shrektan/lookthrough)
+[![Coverage status](https://codecov.io/gh/shrektan/lookthrough/branch/master/graph/badge.svg)](https://codecov.io/github/shrektan/lookthrough?branch=master)
 
 The goal of lookthrough is to help to view the assets exposure using the look-through approach.
 

@@ -15,7 +15,8 @@ Imports:
     purrr,
     magrittr
 Suggests: 
-    testthat
+    testthat,
+    covr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
