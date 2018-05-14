@@ -37,9 +37,10 @@
 #' @param x A `list` or a `data.frame` contains position info. If
 #'   `x` is a `list`, it should contain three levels of each represents
 #'   the `PTF`, `ASSET` and `EXPOSURE`.
-#' @param ... Other arguments being passed to the patched functions. Currently,
-#'   if `x` is a `data.frame`, you can use a named character vector `mapping`
-#'   to map the `data.frame` columns `PTF`, `ASSET` and `EXPOSURE`.
+#' @param mapping A named character vector whose names are `ptf`,
+#'  `asset` and `exposure`used only when `x` is a `data.frame`,
+#'  It's used to map the `data.frame` columns.
+#' @param ... Other arguments being passed to the patched functions.
 #'
 #' @return A `lkthr` object. Essentially it's a [data.tree::Node].
 #'

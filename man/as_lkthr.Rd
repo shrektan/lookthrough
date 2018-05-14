@@ -18,9 +18,11 @@ as_lkthr(x, ...)
 \code{x} is a \code{list}, it should contain three levels of each represents
 the \code{PTF}, \code{ASSET} and \code{EXPOSURE}.}
 
-\item{...}{Other arguments being passed to the patched functions. Currently,
-if \code{x} is a \code{data.frame}, you can use a named character vector \code{mapping}
-to map the \code{data.frame} columns \code{PTF}, \code{ASSET} and \code{EXPOSURE}.}
+\item{...}{Other arguments being passed to the patched functions.}
+
+\item{mapping}{A named character vector whose names are \code{ptf},
+\code{asset} and \code{exposure}used only when \code{x} is a \code{data.frame},
+It's used to map the \code{data.frame} columns.}
 }
 \value{
 A \code{lkthr} object. Essentially it's a \link[data.tree:Node]{data.tree::Node}.
