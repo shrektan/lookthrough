@@ -32,10 +32,8 @@ library(lookthrough)
 data(lkthr_sample)
 ptfs <- as_lkthr(lkthr_sample$ptfs)
 funds <- as_lkthr(lkthr_sample$funds)
-lkthr_set_relation(ptfs, funds)
-purrr::iwalk(lkthr_sample$attributes, ~{
-  purrr::invoke(lkthr_set_attr, .x = .x, assets = .y, ptfs= ptfs)
-})
+lkthr_match(ptfs, funds)
+lkthr_set(ptfs, lkthr_sample$attributes)
 print(ptfs, "exposure", "issuer", "guarantor")
 ```
 
@@ -47,18 +45,10 @@ plot(ptfs)
 
 
 ```{r issuer}
-company_a <- data.tree::Clone(ptfs)
-repeat ({
-  pruned <- data.tree::Prune(company_a, function(node) {
-    !(data.tree::isLeaf(node) && !"company_a" %in% node$issuer)
-  })
-  if (pruned == 0) break
-})
-company_a$Do(function(node) {
-  if (!node$isLeaf) node$exposure <- NULL
-})
+company_a <- lkthr_filter(ptfs, function(node) { "company_a" %in% node$issuer })
 print(company_a, "issuer", "exposure")
 data.tree::Aggregate(company_a, "exposure", sum)
+company_a$ptf1$exposure
 ```
 
 ```{r issuer-plot, eval=FALSE}
