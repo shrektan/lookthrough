@@ -129,13 +129,16 @@ lkthr_filter <- function(ptfs, fun) {
     })
     if (pruned == 0) break
   })
+  lkthr_recal_exposure(res)
   res
 }
 
 
 #' @export
-lkthr_aggregate <- function(ptfs, field) {
-  data.tree::Aggregate(ptfs, function(node) {
-    if (node$isLeaf) node[[field]]
-  }, sum)
+lkthr_recal_exposure <- function(ptfs) {
+  stopifnot(is_lkthr(ptfs))
+  ptfs$Do(function(node) {
+    node$exposure <- Aggregate(node, attribute = "exposure", aggFun = sum)
+  }, traversal = "post-order")
+  invisible(ptfs)
 }
