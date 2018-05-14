@@ -1,3 +1,23 @@
+#' lookthrough: look-through the portfolio exposure
+#'
+#' The portfolio may invest in collective investment undertakings (ICU) or
+#' investments packaged such as funds. In such case, only using the look-through
+#' approach can the managers have a true undertanding of the portfolio exposure.
+#' lookthrough is a simple package that helps you understand the exposure and
+#' calculate aggregated numbers.
+#'
+#' The implementation takes advantage of the
+#' [data.tree](https://github.com/gluc/data.tree) package, which is suitable for
+#' this kind of problems. I strongly suggest you skim the vignettes of data.tree
+#' (see the references below) to have a better understanding of how this package works.
+#'
+#' @references
+#' * [Quick introduction to data.tree](https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html)
+#' * [Example applications of data.tree](https://cran.r-project.org/web/packages/data.tree/vignettes/applications.html)
+#' * [Solvency II Information Note 9 - Look-through of Collective Investment Undertakings in template S.06.03](https://www.centralbank.ie/docs/default-source/Regulation/industry-market-sectors/insurance-reinsurance/solvency-ii/communications/solvency-ii-information-notes/solvency-ii-information-note-9-look-through-of-collective-investment-undertakings-in-template-s-06-03.pdf?sfvrsn=2)
+"_PACKAGE"
+
+
 
 #' @export
 as_lkthr <- function(x, ...) {
