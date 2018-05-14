@@ -21,15 +21,33 @@
 "_PACKAGE"
 
 
+#' lkthr sample data
+#'
+#' A dataset contains artifical ptf positions, fund positions and
+#' asset issuers / guarantors.
+#'
+#' @usage data(lkthr_sample)
+#' @author Xianying Tan
+"lkthr_sample"
+
+
+
+#' Make a lkthr(abbr of lookthrough) object
+#'
+#' @param x A `list` or a `data.frame` contains position info. If
+#'   `x` is a `list`, it should contain three levels of each represents
+#'   the `PTF`, `ASSET` and `EXPOSURE`. If x is
+#' @param mapping When x is a `data.frame`, you can
+#'
+#'
 #' @export
 as_lkthr <- function(x, ...) {
   UseMethod("as_lkthr")
 }
 
 
-#' @export
 as_lkthr.data.frame <- function(
-  x, mapping = c(ptf = "PTF", asset = "ASSET", exposure = "EXPOSURE")
+  x, mapping = c(ptf = "PTF", asset = "ASSET", exposure = "EXPOSURE"), ...
 ) {
   stopifnot(
     is.character(mapping),
@@ -59,7 +77,6 @@ as_lkthr.data.frame <- function(
 }
 
 
-#' @export
 as_lkthr.list <- function(x, ...) {
   res <- data.tree::Node$new("ptfs")
   for (i in seq_along(x)) {
@@ -76,12 +93,24 @@ as_lkthr.list <- function(x, ...) {
 }
 
 
-#' @export
 is_lkthr <- function(x) {
   inherits(x, "lkthr")
 }
 
 
+#' Match the portfolio and the funds
+#'
+#' The fund position will be appended the asset by compare the name.
+#'
+#' It's a by reference operation and will alter the `ptfs` input. You
+#' can call [Copy()] in order not to change the original value.
+#'
+#' @param ptfs A `lkthr` object contains the ptf position.
+#' @param funds A `lkthr` object contains the fund position.
+#' @param max_layer The maximum look-through layers that's allowed to perform.
+#'
+#' @return The altered `ptfs` invisibly.
+#'
 #' @export
 lkthr_match <- function(ptfs, funds, max_layer = 5L) {
   stopifnot(
@@ -111,6 +140,18 @@ lkthr_match <- function(ptfs, funds, max_layer = 5L) {
 }
 
 
+#' Set the assets' attributes
+#'
+#' Set character or numeric attributes to each asset. Again,
+#' it's a by reference function.
+#'
+#' @inheritParams lkthr_match
+#'
+#' @param attr A named `list`. The asset will be match by
+#'  its names.
+#'
+#' @return The altered `ptfs` invisibly.
+#'
 #' @export
 lkthr_set <- function(ptfs, attr) {
   stopifnot(
@@ -127,6 +168,16 @@ lkthr_set <- function(ptfs, attr) {
 }
 
 
+#' Filter on condition
+#'
+#' Filter the `lkthr` tree by the attributes on leafs.
+#'
+#' @inheritParams lkthr_match
+#'
+#' @param fun A binary function with only one param `node`.
+#'
+#' @return A `lkthr` object.
+#'
 #' @export
 lkthr_filter <- function(ptfs, fun) {
   stopifnot(is.function(fun), is_lkthr(ptfs))
@@ -142,7 +193,6 @@ lkthr_filter <- function(ptfs, fun) {
 }
 
 
-#' @export
 lkthr_recal_exposure <- function(ptfs) {
   stopifnot(is_lkthr(ptfs))
   ptfs$Do(function(node) {
