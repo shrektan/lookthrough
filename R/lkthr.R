@@ -65,18 +65,18 @@ as_lkthr.data.frame <- function(
     is.character(assets <- x[[mapping["asset"]]]),
     is.numeric(exposures <- x[[mapping["exposure"]]])
   )
-  res <- data.tree::Node$new("ptfs")
-  for (i in seq_along(ptfs)) {
-    ptf <- ptfs[[i]]
-    if (is.null(node_ptf <- data.tree::FindNode(res, ptf))) {
-      node_ptf <- res$AddChild(ptf)
-    }
-    asset <- assets[[i]]
-    if (is.null(node_asset <- data.tree::FindNode(node_ptf, asset))) {
-      node_asset <- node_ptf$AddChild(asset)
-    }
-    node_asset$Set(exposure = exposures[i])
-  }
+  tbl <- do.call(data.frame, args = c(
+    list(
+      "__PATH__" = paste("ptfs", ptfs, assets, sep = "|"),
+      exposure = exposures,
+      stringsAsFactors = FALSE,
+      check.names = FALSE
+    ),
+    x[, colnames(x)[!colnames(x) %in% mapping]]
+  ))
+  res <- data.tree::FromDataFrameTable(
+    tbl, pathName = "__PATH__", pathDelimiter = "|"
+  )
   class(res) <- c("lkthr", class(res))
   lkthr_recal_exposure(res)
   res
