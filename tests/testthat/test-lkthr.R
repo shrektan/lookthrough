@@ -18,6 +18,13 @@ test_that("as_lkthr.data.frame", {
   )
   # run recal automatically
   expect_equal(res$exposure, 96)
+  # support
+  df$issuer <- c("i_1", "i_2", "i_3")
+  res <- as_lkthr(df, c(ptf = "ptf", asset = "asset", exposure = "exposure"))
+  expect_equivalent(
+    res$Get("issuer", filterFun = function(node) node$isLeaf),
+    df$issuer
+  )
 })
 
 test_that("as_lkthr.list", {

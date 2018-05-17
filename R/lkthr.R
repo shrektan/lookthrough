@@ -72,7 +72,7 @@ as_lkthr.data.frame <- function(
       stringsAsFactors = FALSE,
       check.names = FALSE
     ),
-    x[, colnames(x)[!colnames(x) %in% mapping]]
+    x[, colnames(x)[!colnames(x) %in% mapping], drop = FALSE]
   ))
   res <- data.tree::FromDataFrameTable(
     tbl, pathName = "__PATH__", pathDelimiter = "|"
