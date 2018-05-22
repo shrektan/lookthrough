@@ -211,3 +211,51 @@ lkthr_recal_exposure <- function(ptfs) {
   })
   invisible(ptfs)
 }
+
+
+tooltip <- function(node) {
+  if (length(node$fields) == 0) return("")
+  fields <- node$fields
+  purrr::map(fields, ~ {
+    value <- node[[.]]
+    if (is.numeric(value)) {
+      value <- formatting(value)
+    } else if (is.character(value)) {
+      # do nothing
+    } else {
+      value <- NULL
+    }
+    sprintf("%s: %s", ., value)
+  }) %>% purrr::flatten_chr(.) %>% paste0(., collapse = "\n")
+}
+
+
+node_label <- function(node) {
+  paste0(node$name, "\n", formatting(node$exposure))
+}
+
+
+plot.lkthr <- function(ptfs) {
+  data.tree::SetGraphStyle(ptfs, rankdir = "LR")
+  data.tree::SetEdgeStyle(
+    ptfs,
+    arrowhead = "vee",
+    penwidth = 2
+  )
+  data.tree::SetNodeStyle(
+    ptfs,
+    style = "filled,rounded",
+    shape = "box",
+    fontcolor = "black",
+    fillcolor = "white",
+    fontname = "arial",
+    tooltip = tooltip,
+    label = node_label
+  )
+  data.tree::Traverse(ptfs, filterFun = function(node) {
+    node$level == 3 & !node$isLeaf
+  }) %>% purrr::walk(., ~{
+    data.tree::SetNodeStyle(., fillcolor = "GreenYellow")
+  })
+  data.tree:::plot.Node(ptfs)
+}
