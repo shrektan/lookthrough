@@ -206,5 +206,8 @@ lkthr_recal_exposure <- function(ptfs) {
   ptfs$Do(function(node) {
     node$exposure <- data.tree::Aggregate(node, attribute = "exposure", aggFun = sum)
   }, traversal = "post-order")
+  data.tree::SetFormat(ptfs, "exposure", function(x) {
+    ifelse(is.null(x) || is.na(x), "", formatting(x))
+  })
   invisible(ptfs)
 }
