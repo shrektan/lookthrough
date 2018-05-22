@@ -239,6 +239,9 @@ plot.lkthr <- function(ptfs, rankdir = "LR", ...) {
   if (ptfs$count == 0) {
     stop("can't plot a tree with only one level.", .call = FALSE)
   }
+  if (ptfs$leafCount > 200L) {
+    stop("can't plot a tree with more than 200 leafs.", .call = FALSE)
+  }
   data.tree::SetGraphStyle(ptfs, rankdir = rankdir)
   data.tree::SetEdgeStyle(
     ptfs,
