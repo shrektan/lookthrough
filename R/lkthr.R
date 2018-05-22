@@ -235,6 +235,7 @@ node_label <- function(node) {
 }
 
 
+#' @export
 plot.lkthr <- function(ptfs, rankdir = "LR", ...) {
   if (ptfs$count == 0) {
     stop("can't plot a tree with only one level.", .call = FALSE)

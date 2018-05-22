@@ -2,6 +2,7 @@
 
 S3method(as_lkthr,data.frame)
 S3method(as_lkthr,list)
+S3method(plot,lkthr)
 export("%>%")
 export(Clone)
 export(as_lkthr)
