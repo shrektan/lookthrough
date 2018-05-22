@@ -210,19 +210,23 @@ lkthr_recal_exposure <- function(ptfs) {
 
 
 tooltip <- function(node) {
-  if (length(node$fields) == 0) return("")
   fields <- node$fields
-  purrr::map(fields, ~ {
-    value <- node[[.]]
-    if (is.numeric(value)) {
-      value <- formatting(value)
-    } else if (is.character(value)) {
-      # do nothing
-    } else {
-      value <- NULL
-    }
-    sprintf("%s: %s", ., value)
-  }) %>% purrr::flatten_chr(.) %>% paste0(., collapse = "\n")
+  res <-
+    purrr::map(fields, ~ {
+      value <- node[[.]]
+      if (. == "exposure" || is.null(value) || all(is.na(value))) {
+        return(NULL)
+      } else if (is.numeric(value)) {
+        value <- formatting(value)
+      } else if (is.character(value)) {
+        # do nothing
+      } else {
+        return(NULL)
+      }
+      sprintf("%s: %s", ., paste0(value, collapse = ","))
+    }) %>% purrr::flatten_chr(.) %>% paste0(., collapse = "\n")
+  if (nzchar(res)) return(res)
+  node$name
 }
 
 
@@ -231,8 +235,11 @@ node_label <- function(node) {
 }
 
 
-plot.lkthr <- function(ptfs) {
-  data.tree::SetGraphStyle(ptfs, rankdir = "LR")
+plot.lkthr <- function(ptfs, rankdir = "LR", ...) {
+  if (ptfs$count == 0) {
+    stop("can't plot a tree with only one level.", .call = FALSE)
+  }
+  data.tree::SetGraphStyle(ptfs, rankdir = rankdir)
   data.tree::SetEdgeStyle(
     ptfs,
     arrowhead = "vee",
