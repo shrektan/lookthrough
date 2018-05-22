@@ -126,22 +126,20 @@ lkthr_match <- function(ptfs, funds, max_layer = 5L) {
   )
   layer <- 1L
   count <- NULL
+  funds <- funds$children
+  fund_names <- names(funds)
   while (!identical(count, ptfs$totalCount) && layer < max_layer) {
     count <- ptfs$totalCount
     layer <- layer + 1L
-    purrr::iwalk(funds$children, ~{
-      fund_node <- .x
-      fund_name <- .y
-      fund_exposure <- data.tree::Aggregate(fund_node, "exposure", sum)
-      ptfs$Do(fun = function(lkthr_asset) {
-        asset_exposure <- lkthr_asset$exposure
-        purrr::walk(fund_node$children, ~{
-          node <- lkthr_asset$AddChildNode(data.tree::Clone(.))
-          node$exposure <- node$exposure * asset_exposure / fund_exposure
-        })
-      }, filterFun = function(node) {
-        data.tree::isLeaf(node) && fund_name %in% node$name
+    ptfs$Do(fun = function(node) {
+      fund <- funds[[node$name]]
+      asset_exposure <- node$exposure
+      purrr::walk(fund$children, ~{
+        node <- node$AddChildNode(data.tree::Clone(.))
+        node$exposure <- node$exposure * asset_exposure / fund$exposure
       })
+    }, filterFun = function(node) {
+      data.tree::isLeaf(node) && node$name %in% fund_names
     })
   }
   invisible(ptfs)
@@ -165,12 +163,10 @@ lkthr_set <- function(ptfs, attr) {
   stopifnot(
     is_lkthr(ptfs), is.list(attr), !is.null(names(attr))
   )
-  purrr::imap(attr, ~{
-    ptfs$Do(function(node) {
-      purrr::invoke(node$Set, .x = .x)
-    }, filterFun = function(node) {
-      data.tree::isLeaf(node) && node$name %in% .y
-    })
+  ptfs$Do(function(node) {
+    purrr::invoke(node$Set, .x = attr[[node$name]])
+  }, filterFun = function(node) {
+    data.tree::isLeaf(node) && node$name %in% names(attr)
   })
   invisible(ptfs)
 }
