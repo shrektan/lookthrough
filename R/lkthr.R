@@ -144,7 +144,7 @@ lkthr_match <- function(ptfs, funds, max_layer = 5L) {
       })
     })
   }
-  ptfs
+  invisible(ptfs)
 }
 
 
