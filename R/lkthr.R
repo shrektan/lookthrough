@@ -67,7 +67,7 @@ as_lkthr.data.frame <- function(
   )
   tbl <- do.call(data.frame, args = c(
     list(
-      "__PATH__" = paste("ptfs", ptfs, assets, sep = "|"),
+      "__PATH__" = paste("TOTAL", ptfs, assets, sep = "|"),
       exposure = exposures,
       stringsAsFactors = FALSE,
       check.names = FALSE
@@ -86,7 +86,7 @@ as_lkthr.data.frame <- function(
 #' @rdname as_lkthr
 #' @export
 as_lkthr.list <- function(x, ...) {
-  res <- data.tree::Node$new("ptfs")
+  res <- data.tree::Node$new("TOTAL")
   for (i in seq_along(x)) {
     ptf <- x[[i]]
     node_ptf <- res$AddChild(names(x)[i])
