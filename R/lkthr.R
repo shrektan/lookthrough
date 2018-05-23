@@ -224,7 +224,11 @@ tooltip <- function(node) {
         return(NULL)
       }
       sprintf("%s: %s", ., paste0(value, collapse = ","))
-    }) %>% purrr::flatten_chr(.) %>% paste0(., collapse = "\n")
+    })
+  res <- paste0(
+    purrr::flatten_chr(res),
+    collapse = "\n"
+  )
   if (nzchar(res)) return(res)
   node$name
 }
@@ -236,21 +240,21 @@ node_label <- function(node) {
 
 
 #' @export
-plot.lkthr <- function(ptfs, rankdir = "LR", ...) {
-  if (ptfs$count == 0) {
+plot.lkthr <- function(x, rankdir = "LR", ...) {
+  if (x$count == 0) {
     stop("can't plot a tree with only one level.", .call = FALSE)
   }
-  if (ptfs$leafCount > 200L) {
+  if (x$leafCount > 200L) {
     stop("can't plot a tree with more than 200 leafs.", .call = FALSE)
   }
-  data.tree::SetGraphStyle(ptfs, rankdir = rankdir)
+  data.tree::SetGraphStyle(x, rankdir = rankdir)
   data.tree::SetEdgeStyle(
-    ptfs,
+    x,
     arrowhead = "vee",
     penwidth = 2
   )
   data.tree::SetNodeStyle(
-    ptfs,
+    x,
     style = "filled,rounded",
     shape = "box",
     fontcolor = "black",
@@ -259,10 +263,12 @@ plot.lkthr <- function(ptfs, rankdir = "LR", ...) {
     tooltip = tooltip,
     label = node_label
   )
-  data.tree::Traverse(ptfs, filterFun = function(node) {
-    node$level == 3 & !node$isLeaf
-  }) %>% purrr::walk(., ~{
-    data.tree::SetNodeStyle(., fillcolor = "GreenYellow")
-  })
-  data.tree:::plot.Node(ptfs)
+   purrr::walk(
+     data.tree::Traverse(x, filterFun = function(node) {
+       node$level == 3 & !node$isLeaf
+     }),
+     ~data.tree::SetNodeStyle(., fillcolor = "GreenYellow")
+   )
+   fun <- utils::getS3method("plot", "Node", FALSE, envir = getNamespace("data.tree"))
+  do.call(fun, list(x))
 }
