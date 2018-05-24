@@ -1,7 +1,5 @@
 ---
 output: github_document
-always_allow_html: yes 
-
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -42,9 +40,11 @@ lkthr_set(ptfs, lkthr_sample$attributes)
 print(ptfs, "exposure", "issuer", "guarantor")
 ```
 
-```{r ptfs-plot, dev='svg'}
+```{r ptfs-plot, eval=FALSE}
 plot(ptfs)
 ```
+
+![ptfs-plot](man/figures/ptfs-plot.jpeg)
 
 
 ```{r issuer}
@@ -54,7 +54,8 @@ data.tree::Aggregate(company_a, "exposure", sum)
 company_a$ptf1$exposure
 ```
 
-```{r issuer-plot, dev='svg'}
+```{r issuer-plot, eval=FALSE}
 plot(company_a)
 ```
 
+![issuer-plot](man/figures/issuer-plot.jpeg)
