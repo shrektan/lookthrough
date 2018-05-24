@@ -263,12 +263,12 @@ plot.lkthr <- function(x, rankdir = "LR", ...) {
     tooltip = tooltip,
     label = node_label
   )
-   purrr::walk(
-     data.tree::Traverse(x, filterFun = function(node) {
-       node$level == 3 & !node$isLeaf
-     }),
-     ~data.tree::SetNodeStyle(., fillcolor = "GreenYellow")
-   )
-   fun <- utils::getS3method("plot", "Node", FALSE, envir = getNamespace("data.tree"))
+  purrr::walk(
+    data.tree::Traverse(x, filterFun = function(node) {
+      node$level == 3 & !node$isLeaf
+    }),
+    ~data.tree::SetNodeStyle(., fillcolor = "GreenYellow")
+  )
+  fun <- utils::getS3method("plot", "Node", FALSE, envir = getNamespace("data.tree"))
   do.call(fun, list(x))
 }
