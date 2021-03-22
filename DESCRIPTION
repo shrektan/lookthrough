@@ -1,7 +1,7 @@
 Type: Package
 Package: lookthrough
 Title: The Look-Through Approach for Exposures
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: person("Xianying", "Tan", email = "shrektan@126.com", role = c("aut", "cre"))
 Maintainer: Xianying Tan <shrektan@126.com>
 Description: Drill down into your portfolio exposure using the look-through approach.
@@ -10,11 +10,11 @@ BugReports: https://github.com/shrektan/lookthrough/issues
 License: MIT + file LICENSE
 Depends:
     R (>= 3.4.0)
-Imports: 
+Imports:
     data.tree,
     purrr,
     magrittr
-Suggests: 
+Suggests:
     testthat,
     covr
 Encoding: UTF-8

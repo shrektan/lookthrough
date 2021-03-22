@@ -210,7 +210,7 @@ lkthr_recal_exposure <- function(ptfs) {
 
 
 tooltip <- function(node) {
-  fields <- node$fields
+  fields <- node$attributes
   res <-
     purrr::map(fields, ~ {
       value <- node[[.]]
